@@ -13,3 +13,32 @@ class PostSchema(BaseModel):
                 "content": "Some content about animals"
             }
         }
+
+
+# schemas to handle registration and login
+class userSchema(BaseModel):
+    fullName: str = Field(default=None)
+    email: EmailStr = Field(default=None)
+    password: str = Field(default=None)
+
+    class Config:
+        schema = {
+            "userDemo": {
+                "name": "varad",
+                "email": "abc@123.com",
+                "password": "abc123"
+            }
+        }
+
+
+class userLoginSchema(BaseModel):
+    email: EmailStr = Field(default=None)
+    password: str = Field(default=None)
+
+    class Config:
+        schema = {
+            "userDemo": {
+                "email": "abc@123.com",
+                "password": "abc123"
+            }
+        }
