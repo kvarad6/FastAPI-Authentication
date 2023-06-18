@@ -25,11 +25,11 @@ users = []
 app = FastAPI()
 
 
-def check_user(data: UserLoginSchema):
-    for user in users:
-        if user.email == data.email and user.password == data.password:
-            return True
-    return False
+# def check_user(data: UserLoginSchema):
+#     for user in users:
+#         if user.email == data.email and user.password == data.password:
+#             return True
+#     return False
 
 
 # route handlers
@@ -58,3 +58,12 @@ def get_single_post(id: int):
             return {
                 "data": post
             }
+
+
+@app.post("/posts", tags=["posts"])
+def add_post(post: PostSchema):
+    post.id = len(posts) + 1
+    posts.append(post.dict())
+    return {
+        "data": "post added."
+    }
