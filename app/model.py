@@ -1,4 +1,4 @@
-from pydentic import BaseModel, Field, EmailStr
+from pydantic import BaseModel, Field, EmailStr
 
 
 class PostSchema(BaseModel):
