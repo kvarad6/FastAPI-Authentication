@@ -13,8 +13,9 @@ from decouple import config
 JWT_SECRET = config("secret")
 JWT_ALGORITHM = config("algorithm")
 
-
 # function to return generated tokens (JWTs)
+
+
 def tokenResponse(token: str):
     return {
         "access token": token
@@ -25,9 +26,12 @@ def tokenResponse(token: str):
 def signJWT(userID: str):
     payload = {
         "userID": userID,
-        "expiry": time.time()+600
+        "expiry": time.time()+600000
     }
     token = jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
+    print(payload)
+    print(JWT_SECRET)
+    print(JWT_ALGORITHM)
     return tokenResponse(token)
 
 
@@ -35,6 +39,6 @@ def signJWT(userID: str):
 def decodeJWT(token: str):
     try:
         decodeToken = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
-        return decodeToken if decodeToken['expires'] > time.time() else None
+        return decodeToken if decodeToken['expiry'] > time.time() else None
     except:
         return {}
