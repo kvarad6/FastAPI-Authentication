@@ -69,9 +69,8 @@ def addPost(post: PostSchema):
         "data": "post added."
     }
 
+
 # route for user signup (create a new user)
-
-
 @app.post("/user/signup", tags=["user"])
 def userSignup(user: userSchema = Body(default=None)):
     users.append(user)
@@ -79,12 +78,10 @@ def userSignup(user: userSchema = Body(default=None)):
 
 
 def checkUser(data: userLoginSchema):
-    print("data:", data)
-    if user in users:
+    for user in users:
         if user.email == data.email and user.password == data.password:
             return True
-        else:
-            return False
+    return False
 
 
 @app.post("/user/login", tags=["user"])
